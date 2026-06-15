@@ -21,6 +21,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composequadrant.ui.theme.ComposeQuadrantTheme
@@ -103,7 +104,8 @@ fun ComposableCard(category: String, type: String, definition: String, modifier:
         )
         // I assume that the Text composable would set default font size without passing its size
         Text(
-            text = definition
+            text = definition,
+            textAlign = TextAlign.Justify
         )
     }
 }
