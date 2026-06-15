@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -30,7 +31,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             TaskManagerTheme {
                 Surface ( modifier = Modifier.fillMaxSize() ) {
-                    CompletingTask()
+                    CompletingTask(
+                        image = painterResource(R.drawable.ic_task_completed),
+                        completedText = stringResource(R.string.all_task_completed_text),
+                        messageText = stringResource(R.string.nice_work_text)
+                    )
                 }
             }
         }
@@ -38,42 +43,27 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun CompletingTask(modifier: Modifier = Modifier) {
+fun CompletingTask(image: Painter, completedText: String, messageText: String, modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = modifier.fillMaxSize()
     ) {
-        CompletedImage()
-        CompletedTextOne(content = stringResource(R.string.all_task_completed_text))
-        CompletedTextTwo(content = stringResource(R.string.nice_work_text))
+        Image(
+            painter = image,
+            contentDescription = null
+        )
+        Text(
+            text = completedText,
+            fontWeight = FontWeight.Bold,
+            modifier = modifier.padding(top = 24.dp, bottom = 8.dp)
+        )
+        Text(
+            text = messageText,
+            fontSize = 16.sp,
+        )
     }
 
-}
-
-@Composable
-fun CompletedImage(modifier: Modifier = Modifier) {
-    Image(
-        painter = painterResource(R.drawable.ic_task_completed),
-        contentDescription = null
-    )
-}
-
-@Composable
-fun CompletedTextOne(content: String, modifier: Modifier = Modifier) {
-    Text(
-        text = content,
-        fontWeight = FontWeight.Bold,
-        modifier = modifier.padding(top = 24.dp, bottom = 8.dp)
-    )
-}
-
-@Composable
-fun CompletedTextTwo(content: String, modifier: Modifier = Modifier) {
-    Text(
-        text = content,
-        fontSize = 16.sp,
-    )
 }
 
 @Preview(showBackground = true)
@@ -81,7 +71,9 @@ fun CompletedTextTwo(content: String, modifier: Modifier = Modifier) {
 fun GreetingPreview() {
     TaskManagerTheme {
         CompletingTask(
-            modifier = Modifier.fillMaxSize()
+            image = painterResource(R.drawable.ic_task_completed),
+            completedText = stringResource(R.string.all_task_completed_text),
+            messageText = stringResource(R.string.nice_work_text)
         )
     }
 }
