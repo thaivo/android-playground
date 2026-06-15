@@ -12,6 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -32,6 +33,8 @@ class MainActivity : ComponentActivity() {
                         header = stringResource(R.string.compose_article_header),
                         paragraph1 = stringResource(R.string.compose_article_paragraph_1),
                         paragraph2 = stringResource(R.string.compose_article_paragraph_2),
+                        image = painterResource(R.drawable.bg_compose_background),
+                        imageDescription = stringResource(R.string.compose_article_image_content_desc),
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -39,32 +42,30 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-@Composable
-fun ComposeArticleImage(contentDesc: String, modifer: Modifier = Modifier) {
-    Image(
-        painter = painterResource(R.drawable.bg_compose_background),
-        contentDescription = contentDesc,
-        contentScale = ContentScale.FillWidth
-    )
-}
 
 @Composable
-fun ComposeArticleTextParagraph(content: String, fontSize: Int, textAlign: TextAlign? = null, modifer: Modifier = Modifier) {
-    Text(
-        text = content,
-        fontSize = fontSize.sp,
-        modifier = modifer.padding(16.dp),
-        textAlign = textAlign
-    )
-}
-
-@Composable
-fun ComposeArticle(header: String, paragraph1: String, paragraph2: String, modifier: Modifier = Modifier) {
+fun ComposeArticle(header: String, paragraph1: String, paragraph2: String, image: Painter, imageDescription: String, modifier: Modifier = Modifier) {
     Column(modifier) {
-        ComposeArticleImage(contentDesc = "Background image")
-        ComposeArticleTextParagraph(content = header, fontSize = 24)
-        ComposeArticleTextParagraph(content = paragraph1, fontSize = 16, textAlign = TextAlign.Justify)
-        ComposeArticleTextParagraph(content = paragraph2, fontSize = 16, textAlign = TextAlign.Justify)
+        Image(
+            painter = image,
+            contentDescription = imageDescription,
+            contentScale = ContentScale.FillWidth
+        )
+        Text(
+            text = header,
+            fontSize = 24.sp,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = paragraph1,
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+            textAlign = TextAlign.Justify
+        )
+        Text(
+            text = paragraph2,
+            modifier = Modifier.padding(16.dp),
+            textAlign = TextAlign.Justify
+        )
     }
 }
 
@@ -75,7 +76,9 @@ fun GreetingPreview() {
         ComposeArticle(
             header = stringResource(R.string.compose_article_header),
             paragraph1 = stringResource(R.string.compose_article_paragraph_1),
-            paragraph2 = stringResource(R.string.compose_article_paragraph_2)
+            paragraph2 = stringResource(R.string.compose_article_paragraph_2),
+            image = painterResource(R.drawable.bg_compose_background),
+            imageDescription = stringResource(R.string.compose_article_image_content_desc)
         )
     }
 }
